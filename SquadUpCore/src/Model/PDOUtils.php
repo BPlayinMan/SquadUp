@@ -22,7 +22,7 @@ class PDOUtils
             return $conn;
         } catch (PDOException $e)
         {
-            echo "COCK";
+            //echo "COCK";
             return false;
         }
     }
