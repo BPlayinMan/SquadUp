@@ -1,0 +1,8 @@
+.env/
+.ssh/
+mysql/
+
+**/.idea/
+**/.vs/
+**/.vscode/
+**/.vsconfig

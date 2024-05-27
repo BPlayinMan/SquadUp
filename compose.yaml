@@ -1,0 +1,66 @@
+services:
+  database:
+    container_name: squadup_db
+    image: mysql:8.3.0
+    command: --default-authentication-plugin=caching_sha2_password
+    env_file:
+      - ./.env/db.env
+    networks:
+      - squadup_internal
+    expose:
+      - 3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+    restart: unless-stopped
+    ports:
+      - 4306:3306
+  php:
+    container_name: squadup_php
+    build:
+      context: "."
+    env_file:
+      - ./.env/core.env
+    volumes:
+      - ./.ssh:/.ssh
+    networks:
+      - squadup_internal
+    expose:
+      - 9000
+    depends_on:
+      - database
+    restart: unless-stopped
+  frontend:
+    container_name: squadup_ui
+    build:
+      context: "./squadup-ui/"
+    env_file:
+      - ./.env/ui.env
+    networks:
+      - squadup_internal
+    expose:
+      - 8080
+    restart: unless-stopped
+  nginx:
+    container_name: squadup_proxy
+    image: nginx:stable-alpine
+    volumes:
+      - ./SquadUpCore:/var/www/SquadUp
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/includes:/etc/nginx/includes
+    networks:
+      - squadup_internal
+      - services
+    expose:
+      - 8080
+    depends_on:
+      - php
+      - database
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+networks:
+  services:
+    external: true
+    name: web_services
+  squadup_internal:
+    external: false
