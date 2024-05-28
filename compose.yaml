@@ -57,13 +57,16 @@ services:
       - ./SquadUpCore:/var/www/SquadUp
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/includes:/etc/nginx/includes
+      - ./certs:/etc/nginx/ssl
     networks:
       - squadup_internal
       - services
     expose:
       - 80
+      - 443
     ports:
       - "8080:80"
+      - "8443:443"
     depends_on:
       - php
       - database
