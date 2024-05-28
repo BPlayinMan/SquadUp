@@ -40,6 +40,16 @@ services:
     expose:
       - 8080
     restart: unless-stopped
+  phpmyadmin:
+    container_name: squadup_pma
+    image: phpmyadmin:latest
+    networks:
+      - squadup_internal
+    expose:
+      - 80
+    restart: unless-stopped
+    env_file:
+      - ./.env/pma.env
   nginx:
     container_name: squadup_proxy
     image: nginx:stable-alpine
@@ -52,6 +62,8 @@ services:
       - services
     expose:
       - 8080
+    ports:
+      - "8080:8080"
     depends_on:
       - php
       - database

@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import React, {useContext} from "react";
+import React, {HTMLAttributes, useContext} from "react";
 import {AccountContext} from "@/components/auth/AccountProvider.tsx";
 import {
     NavigationMenu,
@@ -17,6 +17,21 @@ import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog.tsx";
 import CreatePostDialog from "@/components/post/create/CreatePostDialog.tsx";
 import NotificationMenu from "@/components/notifications/NotificationMenu.tsx";
 
+function NavButton({...props}: HTMLAttributes<HTMLLIElement>)
+{
+    return (
+        <NavigationMenuItem
+            {...props}
+            style={{
+                marginLeft: 3,
+                marginRight: 3
+            }}
+        >
+            {props.children}
+        </NavigationMenuItem>
+    )
+}
+
 export default function AppNavbar()
 {
     const accountCtx = useContext(AccountContext);
@@ -27,7 +42,7 @@ export default function AppNavbar()
         }}>
             <NavigationMenuList className={"w-full max-w-full flex-row"}>
                 <div className={"grow-0 shrink flex"}>
-                    <NavigationMenuItem>
+                    <NavButton>
                         <Link to={"/app/user/@me"} className={navigationMenuTriggerStyle()}>
                             <img
                                 src={accountCtx.user.avatar}
@@ -39,16 +54,16 @@ export default function AppNavbar()
                             />
                             {accountCtx.user.username}
                         </Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
+                    </NavButton>
+                    <NavButton>
                         <NavigationMenuTrigger>
                             <Bell size={20} />
                         </NavigationMenuTrigger>
                         <NavigationMenuContent className={"w-[400px]"}>
                             <NotificationMenu />
                         </NavigationMenuContent>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
+                    </NavButton>
+                    <NavButton>
                         <Dialog>
                             <DialogTrigger asChild>
                                 <Button variant={"secondary"}>
@@ -60,28 +75,28 @@ export default function AppNavbar()
                             </DialogTrigger>
                             <CreatePostDialog />
                         </Dialog>
-                    </NavigationMenuItem>
+                    </NavButton>
                 </div>
                 <div className={"grow shrink-0"}>
                     {/* Empty for space fill */}
                 </div>
                 <div className={"grow-0 shrink flex"}>
-                    <NavigationMenuItem>
+                    <NavButton>
                         <Button variant={"secondary"}>
                             <Settings size={20} style={{
                                 marginRight: 7
                             }}/>
                             Settings
                         </Button>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
+                    </NavButton>
+                    <NavButton>
                         <Button variant={"secondary"} onClick={accountCtx.logout}>
                             <LogOut size={20} style={{
                                 marginRight: 7
                             }} />
                             Log out
                         </Button>
-                    </NavigationMenuItem>
+                    </NavButton>
                 </div>
             </NavigationMenuList>
         </NavigationMenu>
