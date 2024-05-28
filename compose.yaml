@@ -67,6 +67,9 @@ services:
     depends_on:
       - php
       - database
+    env_file:
+      - path: ./.env/nginx.env
+        required: false
     restart: unless-stopped
 networks:
   services:
