@@ -61,9 +61,9 @@ services:
       - squadup_internal
       - services
     expose:
-      - 8080
+      - 80
     ports:
-      - "8080:8080"
+      - "8080:80"
     depends_on:
       - php
       - database
