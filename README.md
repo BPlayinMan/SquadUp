@@ -14,7 +14,7 @@ While I have no intention to release it to the public as a full webapp, but I wi
 
 ### TODOs
 
-- [ ] Move to PostgreSQL as DBMS
+- [x] Move to PostgreSQL as DBMS
 - [ ] **[IN PROGRESS]** Rewrite backend in ASP.NET core
 - [ ] Finish up all frontend features
 - [ ] Make it a relatively safe system
