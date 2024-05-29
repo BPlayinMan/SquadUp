@@ -1,0 +1,15 @@
+# Build files
+**/[Oo]bj/
+**/[Bb]in/
+**/[Oo]ut/
+**/[Bb]uild/
+
+# User local files
+**/*.user*
+**/*.local*
+
+# IDE files
+**/.idea/
+**/.vs/
+**/.vscode/
+**/.vsconfig
