@@ -3,6 +3,7 @@
 **/[Bb]in/
 **/[Oo]ut/
 **/[Bb]uild/
+**/[Rr]un/
 
 # User local files
 **/*.user*
