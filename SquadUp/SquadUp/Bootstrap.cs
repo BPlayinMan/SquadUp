@@ -1,5 +1,6 @@
 ﻿using NLog;
 using SquadUp.Logging;
+using SquadUp.Model;
 
 namespace SquadUp
 {
@@ -30,8 +31,10 @@ namespace SquadUp
             });
             
             LoggingBootstrap.InitLogging(builder);
-            
-            //TODO Configure the builder
+
+            //Add PostgreSQL database
+            builder.Services
+                .AddNpgsql<SquadUpContext>(builder.Configuration.GetConnectionString("MainDb"));
 
             return builder;
         }
