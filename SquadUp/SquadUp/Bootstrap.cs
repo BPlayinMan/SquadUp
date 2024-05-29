@@ -1,4 +1,5 @@
 ﻿using NLog;
+using SquadUp.Discord;
 using SquadUp.Logging;
 using SquadUp.Model;
 
@@ -35,6 +36,11 @@ namespace SquadUp
             //Add PostgreSQL database
             builder.Services
                 .AddNpgsql<SquadUpContext>(builder.Configuration.GetConnectionString("MainDb"));
+
+            //Add DiscordCoreService
+            builder.Services
+                .AddSingleton<DiscordCoreService>()
+                .AddHostedService<DiscordCoreService>(p => p.GetRequiredService<DiscordCoreService>());
 
             return builder;
         }
