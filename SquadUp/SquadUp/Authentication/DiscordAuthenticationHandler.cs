@@ -7,6 +7,11 @@ namespace SquadUp.Authentication
 {
     public class DiscordAuthenticationHandler : SignInAuthenticationHandler<DiscordAuthenticationOptions>
     {
+        /// <summary>
+        /// Name of this auth scheme
+        /// </summary>
+        public const string SchemeName = "Discord";
+        
         //TODO Add services and vars
         
         public DiscordAuthenticationHandler(
